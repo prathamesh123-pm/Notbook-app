@@ -1,0 +1,484 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user or team member within the ProcurePal application. Used for assigning tasks and generating reports. Authentication details are handled externally.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the User entity."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        }
+      },
+      "required": [
+        "id",
+        "firstName",
+        "lastName"
+      ]
+    },
+    "Vehicle": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Vehicle",
+      "type": "object",
+      "description": "Represents a vehicle used for milk procurement routes.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Vehicle entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name or model of the vehicle."
+        },
+        "licensePlate": {
+          "type": "string",
+          "description": "The license plate number of the vehicle."
+        },
+        "description": {
+          "type": "string",
+          "description": "Additional descriptive details about the vehicle."
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    },
+    "Route": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Route",
+      "type": "object",
+      "description": "Defines a specific milk procurement route, including its characteristics and associated suppliers.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Route entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the route (e.g., 'Northern Villages Route')."
+        },
+        "distanceKm": {
+          "type": "number",
+          "description": "The current estimated total distance of the route in kilometers."
+        },
+        "vehicleId": {
+          "type": "string",
+          "description": "Reference to the Vehicle assigned to this route. (Relationship: Vehicle 1:N Route)"
+        },
+        "supplierIds": {
+          "type": "array",
+          "description": "An array of IDs referencing suppliers associated with this route. (Relationship: Route N:N Supplier)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the route was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the route was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "distanceKm",
+        "vehicleId",
+        "supplierIds",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Supplier": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Supplier",
+      "type": "object",
+      "description": "Represents a milk supplier, storing their contact details, location, and milk-related information.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Supplier entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the supplier (e.g., 'Farmer John's Dairy')."
+        },
+        "address": {
+          "type": "string",
+          "description": "The physical address of the supplier."
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "The mobile contact number for the supplier."
+        },
+        "currentMilkQuantityLiters": {
+          "type": "number",
+          "description": "The typical or current quantity of milk supplied by the supplier, in liters."
+        },
+        "milkQualityDescription": {
+          "type": "string",
+          "description": "A description or assessment of the milk quality from this supplier (e.g., 'High fat content', 'Organic certified')."
+        },
+        "notes": {
+          "type": "string",
+          "description": "Any additional minimal information or remarks about the supplier."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the supplier profile was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the supplier profile was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "address",
+        "mobileNumber",
+        "currentMilkQuantityLiters",
+        "milkQualityDescription",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "Task": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Task",
+      "type": "object",
+      "description": "Represents a daily work task assigned to a team member within the milk procurement department.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the Task entity."
+        },
+        "title": {
+          "type": "string",
+          "description": "A brief title for the task."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the task."
+        },
+        "assignedToUserId": {
+          "type": "string",
+          "description": "Reference to the User/team member assigned to this task. (Relationship: User 1:N Task)"
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the task (e.g., 'Assigned', 'Pending', 'Completed')."
+        },
+        "dueDate": {
+          "type": "string",
+          "description": "The date by which the task is expected to be completed.",
+          "format": "date-time"
+        },
+        "completionDate": {
+          "type": "string",
+          "description": "The actual date when the task was completed.",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the task was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the task was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "assignedToUserId",
+        "status",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "VisitReport": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "VisitReport",
+      "type": "object",
+      "description": "Captures details and observations from a visit made to a supplier or along a route.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the VisitReport entity."
+        },
+        "reportDate": {
+          "type": "string",
+          "description": "The date of the visit.",
+          "format": "date-time"
+        },
+        "routeId": {
+          "type": "string",
+          "description": "Reference to the Route visited. (Relationship: Route 1:N VisitReport)"
+        },
+        "supplierId": {
+          "type": "string",
+          "description": "Reference to the specific Supplier visited. (Relationship: Supplier 1:N VisitReport)"
+        },
+        "visitedByUserId": {
+          "type": "string",
+          "description": "Reference to the User/team member who conducted the visit. (Relationship: User 1:N VisitReport)"
+        },
+        "rawNotes": {
+          "type": "string",
+          "description": "Raw text notes taken during the visit."
+        },
+        "summary": {
+          "type": "string",
+          "description": "A concise, actionable summary of the visit, potentially generated by the AI tool."
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the report was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the report was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "reportDate",
+        "routeId",
+        "supplierId",
+        "visitedByUserId",
+        "createdAt",
+        "updatedAt"
+      ]
+    },
+    "DailyWorkReport": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "DailyWorkReport",
+      "type": "object",
+      "description": "A consolidated report summarizing daily operational activities, including tasks and visit reports.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the DailyWorkReport entity."
+        },
+        "reportDate": {
+          "type": "string",
+          "description": "The date for which the report is generated.",
+          "format": "date-time"
+        },
+        "generatedByUserId": {
+          "type": "string",
+          "description": "Reference to the User who generated the report. (Relationship: User 1:N DailyWorkReport)"
+        },
+        "overallSummary": {
+          "type": "string",
+          "description": "An overall summary of the day's work and observations."
+        },
+        "taskIds": {
+          "type": "array",
+          "description": "An array of IDs referencing tasks included in this daily report. (Relationship: DailyWorkReport N:N Task)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "visitReportIds": {
+          "type": "array",
+          "description": "An array of IDs referencing visit reports included in this daily report. (Relationship: DailyWorkReport N:N VisitReport)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Timestamp when the report was created.",
+          "format": "date-time"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "Timestamp when the report was last updated.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "reportDate",
+        "generatedByUserId",
+        "overallSummary",
+        "taskIds",
+        "visitReportIds",
+        "createdAt",
+        "updatedAt"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores individual user profiles. The document ID (`userId`) must match `request.auth.uid` for ownership. Used for basic profile information. No sensitive authorization data is stored here; roles are managed in a separate collection."
+        }
+      },
+      {
+        "path": "/roles_teamMembers/{uid}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Defines which users are considered 'team members' within the ProcurePal application, granting them access to shared organizational data. The document ID (`uid`) is the user's Firebase Authentication UID. Authorization relies on the existence of this document for a given user.",
+          "params": [
+            {
+              "name": "uid",
+              "description": "The unique ID of the user, matching their Firebase Authentication UID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/vehicles/{vehicleId}",
+        "definition": {
+          "entityName": "Vehicle",
+          "schema": {
+            "$ref": "#/backend/entities/Vehicle"
+          },
+          "description": "A collection of all vehicles available for milk procurement routes, managed as a shared organizational resource by team members. Accessible by all users with 'team member' role.",
+          "params": [
+            {
+              "name": "vehicleId",
+              "description": "The unique identifier for the vehicle."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/suppliers/{supplierId}",
+        "definition": {
+          "entityName": "Supplier",
+          "schema": {
+            "$ref": "#/backend/entities/Supplier"
+          },
+          "description": "A collection of all milk suppliers, managed as a shared organizational resource by team members. Accessible by all users with 'team member' role.",
+          "params": [
+            {
+              "name": "supplierId",
+              "description": "The unique identifier for the supplier."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/routes/{routeId}",
+        "definition": {
+          "entityName": "Route",
+          "schema": {
+            "$ref": "#/backend/entities/Route"
+          },
+          "description": "A collection of all milk procurement routes. Each route references a Vehicle and an array of Supplier IDs. Managed as a shared organizational resource by team members. Accessible by all users with 'team member' role.",
+          "params": [
+            {
+              "name": "routeId",
+              "description": "The unique identifier for the route."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/tasks/{taskId}",
+        "definition": {
+          "entityName": "Task",
+          "schema": {
+            "$ref": "#/backend/entities/Task"
+          },
+          "description": "Stores tasks specific to a user. The `userId` in the path must match `request.auth.uid`. Includes denormalized 'assignedToUserId' field for authorization independence, which must also match the path's `userId` for robust security rules.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique ID of the user to whom the task is assigned."
+            },
+            {
+              "name": "taskId",
+              "description": "The unique identifier for the task."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/visitReports/{visitReportId}",
+        "definition": {
+          "entityName": "VisitReport",
+          "schema": {
+            "$ref": "#/backend/entities/VisitReport"
+          },
+          "description": "Stores visit reports created by a specific user. The `userId` in the path must match `request.auth.uid`. Includes denormalized 'visitedByUserId' field for authorization independence, which must also match the path's `userId` for robust security rules. References global 'routeId' and 'supplierId'.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique ID of the user who conducted the visit and created the report."
+            },
+            {
+              "name": "visitReportId",
+              "description": "The unique identifier for the visit report."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/dailyWorkReports/{dailyWorkReportId}",
+        "definition": {
+          "entityName": "DailyWorkReport",
+          "schema": {
+            "$ref": "#/backend/entities/DailyWorkReport"
+          },
+          "description": "Stores daily work reports generated by a specific user. The `userId` in the path must match `request.auth.uid`. Includes denormalized 'generatedByUserId' field for authorization independence, which must also match the path's `userId` for robust security rules. References arrays of global 'taskId' and 'visitReportId'.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique ID of the user who generated the daily work report."
+            },
+            {
+              "name": "dailyWorkReportId",
+              "description": "The unique identifier for the daily work report."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to adhere strictly to the core principles of Authorization Independence, Clarity of Intent, DBAC, and QAPs. The primary strategy involves a mix of top-level collections for shared organizational resources and user-specific subcollections for private, ownership-based data.\n\n**Authorization Independence via Denormalization:**\n*   For `Task` documents, the `assignedToUserId` field is explicitly denormalized within the document. When a task is stored at `/users/{userId}/tasks/{taskId}`, Firestore rules will verify that `request.auth.uid` matches both the `userId` in the path and the `assignedToUserId` in the document's data. This eliminates the need for expensive and complex `get()` calls to a parent document or user profile to determine authorization, allowing atomic write operations and simplifying rule logic.\n*   Similarly, `VisitReport` documents include `visitedByUserId`, and `DailyWorkReport` documents include `generatedByUserId`. In these cases, the `userId` in the path (`/users/{userId}/...`) must match the respective denormalized ID within the document, ensuring that authorization is self-contained within each document.\n*   Shared organizational resources like `Route`, `Vehicle`, and `Supplier` are at the top level. Access to these is granted based on membership in the `roles_teamMembers` collection, effectively denormalizing the 'team member' role to a simple existence check `exists(/databases/$(database)/documents/roles_teamMembers/$(request.auth.uid))`. This avoids complex hierarchical lookups for shared data.\n\n**QAPs (Rules are not Filters):**\n*   **User-Specific Data:** The use of user-specific subcollections (e.g., `/users/{userId}/tasks`, `/users/{userId}/visitReports`, `/users/{userId}/dailyWorkReports`) is crucial for QAPs. When a user queries `/users/{request.auth.uid}/tasks`, the Firestore rules directly enforce `request.auth.uid == userId`. This inherently filters the results to only include tasks belonging to the authenticated user, making `list` operations secure and efficient without requiring additional database filters in the security rules themselves.\n*   **Shared Organizational Data:** For collections like `/vehicles`, `/suppliers`, and `/routes`, all documents within these collections are intended to be accessible (read/write by all authorized 'team members'). Authorization rules will verify that the requesting user is a 'team member' (via `roles_teamMembers` collection). Therefore, a `list` query on these collections will return all documents, which aligns with the security posture that all such data is globally visible to the team. This structural segregation ensures that `list` operations are predictable and secure without relying on rule-based filtering.\n\n**Overall Strategy:**\n*   **Path-Based Ownership:** Critical user-specific entities (`Task`, `VisitReport`, `DailyWorkReport`) are nested under `/users/{userId}`, leveraging the path for direct ownership checks.\n*   **Global Resources:** `Vehicle`, `Supplier`, and `Route` are treated as global organizational resources, managed by any authorized team member. Their security rules will rely on a DBAC model, checking membership in the `roles_teamMembers` collection.\n*   **Explicit State and Naming:** Consistent naming conventions (e.g., `userId`, `routeId`) and explicit state fields (`status` in Task) enhance clarity and debuggability."
+  }
+}

@@ -1,0 +1,18 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * संकलन नोंदवही - Simplified Security Rules
+     * सर्व लॉग-इन युजर्सना डेटा वाचण्याची आणि बदलण्याची पूर्ण परवानगी दिली आहे.
+     */
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    match /{document=**} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}

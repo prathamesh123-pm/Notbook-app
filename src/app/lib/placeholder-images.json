@@ -1,0 +1,17 @@
+
+{
+  "placeholderImages": [
+    {
+      "id": "milk-truck",
+      "description": "A milk collection truck on a rural route.",
+      "imageUrl": "https://picsum.photos/seed/milk1/800/600",
+      "imageHint": "milk truck"
+    },
+    {
+      "id": "dairy-farm",
+      "description": "A modern dairy farm landscape.",
+      "imageUrl": "https://picsum.photos/seed/farm1/800/600",
+      "imageHint": "dairy farm"
+    }
+  ]
+}

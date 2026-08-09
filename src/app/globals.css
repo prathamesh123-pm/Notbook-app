@@ -1,0 +1,187 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer components {
+  .compact-form-container {
+    @apply max-w-[480px] mx-auto w-full px-2 py-2 space-y-1.5;
+  }
+  
+  .compact-card {
+    @apply border shadow-none bg-white rounded-lg overflow-hidden p-2 space-y-1.5 border-muted-foreground/10;
+  }
+
+  .compact-label {
+    @apply text-[10px] font-black uppercase text-slate-500 tracking-wider mb-0.5 block leading-none;
+  }
+
+  .compact-input {
+    @apply h-8 text-[12px] font-bold bg-slate-50 border-[1.5px] border-black rounded-md px-2 focus-visible:ring-primary shadow-inner w-full outline-none transition-all;
+  }
+
+  .responsive-table-wrapper {
+    @apply w-full overflow-x-auto rounded-lg border border-slate-200 bg-white mb-4;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .printable-report {
+    @apply w-full bg-white transition-all duration-300 origin-top;
+  }
+}
+
+body {
+  @apply bg-background text-foreground font-body antialiased overflow-x-hidden;
+}
+
+h1, h2, h3, h4 {
+  @apply font-headline font-black tracking-tight uppercase;
+}
+
+/* Updated Borders for all inputs - Black & Bold as requested */
+input, textarea, select, .shadcn-input-like, button[role="combobox"], .border-black {
+  border: 1.5px solid #000 !important;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { @apply bg-transparent; }
+::-webkit-scrollbar-thumb { @apply bg-slate-200 rounded-full; }
+
+@media print {
+  @page {
+    margin: 10mm;
+    size: A4 portrait;
+  }
+
+  body > *:not(div[data-radix-portal]) {
+    display: none !important;
+  }
+
+  /* Handle Radix Dialogs which are used for "Edit" forms often */
+  div[data-radix-portal] {
+    display: block !important;
+    position: static !important;
+    visibility: visible !important;
+  }
+
+  div[role="dialog"] {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    display: block !important;
+    background: white !important;
+    box-shadow: none !important;
+    border: none !important;
+    transform: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    visibility: visible !important;
+  }
+
+  .no-print, .no-print-dialog, [data-sidebar-wrapper], header, nav, footer {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+  }
+
+  html, body {
+    background: white !important;
+    color: black !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .printable-report {
+    display: block !important;
+    width: 210mm !important;
+    max-width: 210mm !important;
+    min-height: 297mm !important;
+    background: white !important;
+    color: black !important;
+    padding: 10mm !important;
+    margin: 0 auto !important;
+    transform: none !important;
+    visibility: visible !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .printable-report * {
+    color: black !important;
+    background-color: transparent !important;
+    border-color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  table {
+    border-collapse: collapse !important;
+    border: 1.5px solid black !important;
+    width: 100% !important;
+    page-break-inside: auto;
+  }
+
+  tr {
+    page-break-inside: avoid;
+    page-break-after: auto;
+  }
+
+  th, td {
+    border: 1.2px solid black !important;
+    padding: 4pt !important;
+    word-break: break-word;
+    font-size: 9pt !important;
+  }
+
+  .bg-primary, .bg-primary\/5, .bg-slate-50, .bg-slate-100 {
+    background-color: #f1f5f9 !important; /* Force very light gray for better b/w prints */
+  }
+
+  .border-primary, .border-rose-600 {
+    border-color: black !important;
+  }
+
+  .text-primary, .text-rose-600, .text-blue-600 {
+    color: black !important;
+  }
+  
+  .break-inside-avoid {
+    page-break-inside: avoid !important;
+  }
+
+  /* Force display for sections that might be hidden by state but should be in report */
+  .print-visible {
+    display: block !important;
+  }
+}

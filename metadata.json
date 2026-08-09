@@ -1,0 +1,6 @@
+{
+  "name": "संकलन नोंदवही",
+  "description": "दूध संकलन व्यवस्थापन आणि दैनंदिन कार्य नोंदवही (Procurement Notebook)",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
